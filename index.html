@@ -8,6 +8,9 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -30,6 +33,10 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
         <script src="data/BeakLocations_1.js"></script>
         <script>
         var highlightLayer;
@@ -43,6 +50,18 @@
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
             if (bounds_group.getLayers().length) {
@@ -190,6 +209,23 @@
                 this._div.innerHTML = '<h2>A Beak> Travel Guide to The West Country</h2>';
             };
             title.addTo(map);
+            var abstract = new L.Control({'position':'bottomleft'});
+            abstract.onAdd = function (map) {
+                this._div = L.DomUtil.create('div',
+                'leaflet-control leaflet-bar abstract');
+                this._div.id = 'abstract'
+
+                    abstract.show();
+                    return this._div;
+                };
+                abstract.show = function () {
+                    this._div.classList.remove("abstract");
+                    this._div.classList.add("abstractUncollapsed");
+                    this._div.innerHTML = 'A locational guide to the place names referenced by Beak> in their 4 long-player releases.  Hover over the points for more information.  Map produced by Mapper Monday @ www.mappermonday.co.uk';
+            };
+            abstract.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'BeakLocations<br /><table><tr><td style="text-align: center;"><img src="legend/BeakLocations_1_0.png" /></td><td>>></td></tr><tr><td style="text-align: center;"><img src="legend/BeakLocations_1_BonusAlbum1.png" /></td><td>>> (Bonus Album)</td></tr><tr><td style="text-align: center;"><img src="legend/BeakLocations_1_2.png" /></td><td>></td></tr><tr><td style="text-align: center;"><img src="legend/BeakLocations_1_3.png" /></td><td>>>></td></tr></table>': layer_BeakLocations_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
         map.on("zoomend", function(){
 
                 if (map.hasLayer(layer_BeakLocations_1)) {
@@ -229,6 +265,195 @@
                         });
                     }
                 }
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Name": "str","Release": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + key).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + key).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + key).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Name = document.createElement('div');
+            div_Name.id = "div_Name";
+            div_Name.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Name);
+            sel_Name = document.createElement('select');
+            sel_Name.multiple = true;
+            sel_Name.size = 10;
+            sel_Name.id = "sel_Name";
+            var Name_options_str = "<option value='' unselected></option>";
+            sel_Name.onchange = function(){filterFunc()};
+            Name_options_str  += '<option value="Abbots Leigh">Abbots Leigh</option>';
+            Name_options_str  += '<option value="Backwell">Backwell</option>';
+            Name_options_str  += '<option value="Barrow Gurney">Barrow Gurney</option>';
+            Name_options_str  += '<option value="Battery Point">Battery Point</option>';
+            Name_options_str  += '<option value="Blagdon Lake">Blagdon Lake</option>';
+            Name_options_str  += '<option value="Brean Down">Brean Down</option>';
+            Name_options_str  += '<option value="Clutton">Clutton</option>';
+            Name_options_str  += '<option value="Dundry Hill">Dundry Hill</option>';
+            Name_options_str  += '<option value="Dursley">Dursley</option>';
+            Name_options_str  += '<option value="Failand">Failand</option>';
+            Name_options_str  += '<option value="Flax Bourton">Flax Bourton</option>';
+            Name_options_str  += '<option value="Ham Green">Ham Green</option>';
+            Name_options_str  += '<option value="Iron Acton">Iron Acton</option>';
+            Name_options_str  += '<option value="Ladies Mile">Ladies Mile</option>';
+            Name_options_str  += '<option value="Lulsgate">Lulsgate</option>';
+            Name_options_str  += '<option value="Nailsea">Nailsea</option>';
+            Name_options_str  += '<option value="Pill">Pill</option>';
+            Name_options_str  += '<option value="The Cornubia">The Cornubia</option>';
+            Name_options_str  += '<option value="Yatton">Yatton</option>';
+            sel_Name.innerHTML = Name_options_str;
+            div_Name.appendChild(sel_Name);
+            var lab_Name = document.createElement('div');
+            lab_Name.innerHTML = 'Name';
+            lab_Name.className = 'filterlabel';
+            div_Name.appendChild(lab_Name);
+            var reset_Name = document.createElement('div');
+            reset_Name.innerHTML = 'clear filter';
+            reset_Name.className = 'filterlabel';
+            reset_Name.onclick = function() {
+                var options = document.getElementById("sel_Name").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Name.appendChild(reset_Name);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Release = document.createElement('div');
+            div_Release.id = "div_Release";
+            div_Release.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Release);
+            sel_Release = document.createElement('select');
+            sel_Release.multiple = true;
+            sel_Release.size = 4;
+            sel_Release.id = "sel_Release";
+            var Release_options_str = "<option value='' unselected></option>";
+            sel_Release.onchange = function(){filterFunc()};
+            Release_options_str  += '<option value=">>">>></option>';
+            Release_options_str  += '<option value=">> (Bonus Album)">>> (Bonus Album)</option>';
+            Release_options_str  += '<option value=">>>">>>></option>';
+            Release_options_str  += '<option value="Recordings 05/01/09 - 17/01/09">Recordings 05/01/09 - 17/01/09</option>';
+            sel_Release.innerHTML = Release_options_str;
+            div_Release.appendChild(sel_Release);
+            var lab_Release = document.createElement('div');
+            lab_Release.innerHTML = 'Release';
+            lab_Release.className = 'filterlabel';
+            div_Release.appendChild(lab_Release);
+            var reset_Release = document.createElement('div');
+            reset_Release.innerHTML = 'clear filter';
+            reset_Release.className = 'filterlabel';
+            reset_Release.onclick = function() {
+                var options = document.getElementById("sel_Release").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Release.appendChild(reset_Release);
         resetLabels([layer_BeakLocations_1]);
         map.on("zoomend", function(){
             resetLabels([layer_BeakLocations_1]);
