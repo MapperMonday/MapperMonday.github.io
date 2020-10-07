@@ -16,7 +16,7 @@
             margin: 0;
         }
         </style>
-        <title>A Circuit Diagram Map of UK Electronica & Hauntology by Mapper Monday</title>
+        <title>A Map of UK Electronica & Hauntology by Mapper Monday</title>
     </head>
     <body>
         <div id="map">
@@ -76,7 +76,7 @@
             continuousWorld: false,
             worldCopyJump: false, 
             zoomControl:true, maxZoom:3, minZoom:1
-        }).fitBounds([[51.23022399177979,-1.3543329408220213],[51.844845725681225,-0.1984161004081189]]);
+        }).fitBounds([[53.60407674033336,-2.0522798475772133],[53.94343392849042,-1.3772551229220482]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -269,7 +269,7 @@
             if (feature.properties['q2wHide_Type'] >= 1.000000 && feature.properties['q2wHide_Type'] <= 2.000000 ) {
                 return {
                 pane: 'pane_ArtistsLabels_2',
-                radius: 8.0,
+                radius: 7.0,
                 opacity: 1,
                 color: 'rgba(255,221,0,1.0)',
                 dashArray: '',
@@ -310,7 +310,7 @@
                 return this._div;
             };
             title.update = function () {
-                this._div.innerHTML = '<h2>A Circuit Diagram Map of UK Electronica & Hauntology by Mapper Monday</h2>';
+                this._div.innerHTML = '<h2>A Map of UK Electronica & Hauntology by Mapper Monday</h2>';
             };
             title.addTo(map);
             var abstract = new L.Control({'position':'bottomleft'});
@@ -318,14 +318,20 @@
                 this._div = L.DomUtil.create('div',
                 'leaflet-control abstract');
                 this._div.id = 'abstract'
-
-                    abstract.show();
+                    this._div.setAttribute("onmouseenter", "abstract.show()");
+                    this._div.setAttribute("onmouseleave", "abstract.hide()");
+                    this.hide();
                     return this._div;
                 };
+                abstract.hide = function () {
+                    this._div.classList.remove("abstractUncollapsed");
+                    this._div.classList.add("abstract");
+                    this._div.innerHTML = 'i'
+                }
                 abstract.show = function () {
                     this._div.classList.remove("abstract");
                     this._div.classList.add("abstractUncollapsed");
-                    this._div.innerHTML = 'A lockdown labour of love to the UK\'s hauntological & electronic scene<br /><br />Produced by Mapper Monday<br />www.mappermonday.co.uk';
+                    this._div.innerHTML = 'During lockdown I taught myself how to use GIS (Geographical Information System) software.  At the same time I was disappearing down an ever-widening Bandcamp rabbit hole which started with A Year In The Country and expanded via Polytechnic Youth, Castles In Space, Clay Pipe and Woodford Halse.<br /><br />As I got to know a little more about some of the artists it struck me how many were making fantastic music from less-heralded places around the UK.  So I wondered what it would look like mapped.  I\'d produced a number of conventional topographical maps but the idea occured to me to make something more topologically stylized and what better I thought than a circuitboard.  It works much the same way as Harry Beck\'s London Underground map where every angle is either 45- or 90-degrees.<br /><br />In making the map I\'ve discovered a number of labels and artists new to me which has allowed me to populate the map a little more.  I had to do some sleuthing to work out where a good number of the artists are based.  Any errors do let me know.  If you\'re making experimental electronic music and/or music of a hauntological bent let me know and I\'ll add you to the map. It\'s by no means a comprehensive picture..yet, so any leads to artists or labels gratefully received.  I can be contacted via my website.<br /><br />Thanks and keep twiddling!<br /><br />Mapper Monday 2020<br />www.mappermonday.co.uk';
             };
             abstract.addTo(map);
         setBounds();
