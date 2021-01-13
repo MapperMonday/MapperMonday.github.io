@@ -381,7 +381,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_RailwaysClosed_3');
@@ -389,7 +389,7 @@
         map.getPane('pane_RailwaysClosed_3').style['mix-blend-mode'] = 'normal';
         var layer_RailwaysClosed_3 = new L.geoJson(json_RailwaysClosed_3, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_RailwaysClosed_3',
             layerName: 'layer_RailwaysClosed_3',
             pane: 'pane_RailwaysClosed_3',
