@@ -41,6 +41,7 @@
         <script src="data/PubBarCafeRestaurant_3.js"></script>
         <script src="data/FoodDrinkRetail_4.js"></script>
         <script src="data/TextileClothingFootwear_5.js"></script>
+        <script src="data/HomeGarden_6.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -59,7 +60,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:19, minZoom:13
-        }).fitBounds([[50.83886264987878,0.516843334731209],[50.901996292184776,0.6281661831577633]]);
+        }).fitBounds([[50.837489812751876,0.5150212939722602],[50.89801574682951,0.6305334106867975]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -582,6 +583,73 @@
         });
         bounds_group.addLayer(layer_TextileClothingFootwear_5);
         map.addLayer(layer_TextileClothingFootwear_5);
+        function pop_HomeGarden_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Address</th>\
+                        <td>' + (feature.properties['Address'] !== null ? autolinker.link(feature.properties['Address'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Phone</th>\
+                        <td>' + (feature.properties['Phone'] !== null ? autolinker.link(feature.properties['Phone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Website</th>\
+                        <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_HomeGarden_6_0() {
+            return {
+                pane: 'pane_HomeGarden_6',
+                shape: 'square',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(105,105,105,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,174,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_HomeGarden_6');
+        map.getPane('pane_HomeGarden_6').style.zIndex = 406;
+        map.getPane('pane_HomeGarden_6').style['mix-blend-mode'] = 'normal';
+        var layer_HomeGarden_6 = new L.geoJson(json_HomeGarden_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_HomeGarden_6',
+            layerName: 'layer_HomeGarden_6',
+            pane: 'pane_HomeGarden_6',
+            onEachFeature: pop_HomeGarden_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_HomeGarden_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_HomeGarden_6);
+        map.addLayer(layer_HomeGarden_6);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -608,7 +676,7 @@
             };
             abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/TextileClothingFootwear_5.png" /> Textile, Clothing & Footwear': layer_TextileClothingFootwear_5,'<img src="legend/FoodDrinkRetail_4.png" /> Food & Drink Retail': layer_FoodDrinkRetail_4,'<img src="legend/PubBarCafeRestaurant_3.png" /> Pub, Bar, Cafe & Restaurant': layer_PubBarCafeRestaurant_3,'<img src="legend/Pedestrianised_2.png" /> Pedestrianised': layer_Pedestrianised_2,'<img src="legend/Roads_1.png" /> Roads': layer_Roads_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/HomeGarden_6.png" /> Home & Garden': layer_HomeGarden_6,'<img src="legend/TextileClothingFootwear_5.png" /> Textile, Clothing & Footwear': layer_TextileClothingFootwear_5,'<img src="legend/FoodDrinkRetail_4.png" /> Food & Drink Retail': layer_FoodDrinkRetail_4,'<img src="legend/PubBarCafeRestaurant_3.png" /> Pub, Bar, Cafe & Restaurant': layer_PubBarCafeRestaurant_3,'<img src="legend/Pedestrianised_2.png" /> Pedestrianised': layer_Pedestrianised_2,'<img src="legend/Roads_1.png" /> Roads': layer_Roads_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
         setBounds();
         var mapDiv = document.getElementById('map');
         var row = document.createElement('div');
@@ -731,17 +799,119 @@
             sel_Name.id = "sel_Name";
             var Name_options_str = "<option value='' unselected></option>";
             sel_Name.onchange = function(){filterFunc()};
-            Name_options_str  += '<option value="Eel & Bear">Eel & Bear</option>';
+            Name_options_str  += '<option value="Amore Italiano">Amore Italiano</option>';
+            Name_options_str  += '<option value="Appleyards Butchers">Appleyards Butchers</option>';
+            Name_options_str  += '<option value="Arcade Butchers">Arcade Butchers</option>';
+            Name_options_str  += '<option value="Arcade Fisheries">Arcade Fisheries</option>';
+            Name_options_str  += '<option value="Atomic Vintage">Atomic Vintage</option>';
+            Name_options_str  += '<option value="Balti Hut">Balti Hut</option>';
+            Name_options_str  += '<option value="Bella Napoli">Bella Napoli</option>';
+            Name_options_str  += '<option value="Big Fish">Big Fish</option>';
+            Name_options_str  += '<option value="Blue Dolphin Fish Bar">Blue Dolphin Fish Bar</option>';
+            Name_options_str  += '<option value="Blue Fish">Blue Fish</option>';
+            Name_options_str  += '<option value="Boulevard Books (Thai)">Boulevard Books (Thai)</option>';
+            Name_options_str  += '<option value="Butler&apos;s Emporium">Butler&apos;s Emporium</option>';
+            Name_options_str  += '<option value="Capsule">Capsule</option>';
+            Name_options_str  += '<option value="Carib de l&apos;Afrique">Carib de l&apos;Afrique</option>';
+            Name_options_str  += '<option value="Castle Tandoori">Castle Tandoori</option>';
+            Name_options_str  += '<option value="Catch, The">Catch, The</option>';
+            Name_options_str  += '<option value="Chinese Town">Chinese Town</option>';
+            Name_options_str  += '<option value="Cinnamon Spice">Cinnamon Spice</option>';
+            Name_options_str  += '<option value="Codfellas">Codfellas</option>';
+            Name_options_str  += '<option value="Coriander (Indian)">Coriander (Indian)</option>';
+            Name_options_str  += '<option value="Dalton&apos;s Carpets">Dalton&apos;s Carpets</option>';
+            Name_options_str  += '<option value="Dandelion Deli">Dandelion Deli</option>';
+            Name_options_str  += '<option value="Dandy Vintage">Dandy Vintage</option>';
+            Name_options_str  += '<option value="Dragon Chef">Dragon Chef</option>';
+            Name_options_str  += '<option value="Eel & Bear (Craft Beer)">Eel & Bear (Craft Beer)</option>';
+            Name_options_str  += '<option value="Erol&apos;s Kebab">Erol&apos;s Kebab</option>';
+            Name_options_str  += '<option value="Famous Cod Father Fish Bar">Famous Cod Father Fish Bar</option>';
             Name_options_str  += '<option value="Fika 44">Fika 44</option>';
             Name_options_str  += '<option value="First In Last Out">First In Last Out</option>';
+            Name_options_str  += '<option value="Flame&apos;s Grill">Flame&apos;s Grill</option>';
+            Name_options_str  += '<option value="Flavours of India">Flavours of India</option>';
+            Name_options_str  += '<option value="Fortes Pizzeria">Fortes Pizzeria</option>';
+            Name_options_str  += '<option value="Fusion Queen (Chinese)">Fusion Queen (Chinese)</option>';
+            Name_options_str  += '<option value="Ghurka Chef">Ghurka Chef</option>';
+            Name_options_str  += '<option value="Goat Ledge">Goat Ledge</option>';
+            Name_options_str  += '<option value="Golden Wok">Golden Wok</option>';
+            Name_options_str  += '<option value="Good On Greens (Fruit & Veg)">Good On Greens (Fruit & Veg)</option>';
+            Name_options_str  += '<option value="Half Man! Half Burger!">Half Man! Half Burger!</option>';
+            Name_options_str  += '<option value="Hastings Fruit & Veg">Hastings Fruit & Veg</option>';
+            Name_options_str  += '<option value="Hastings Furniture Service">Hastings Furniture Service</option>';
             Name_options_str  += '<option value="Hatz & Thingz">Hatz & Thingz</option>';
             Name_options_str  += '<option value="Hawk & Dove">Hawk & Dove</option>';
+            Name_options_str  += '<option value="Helen&apos;s (Veg & Halal Meat)">Helen&apos;s (Veg & Halal Meat)</option>';
+            Name_options_str  += '<option value="Hempist, The (Vegan Cafe)">Hempist, The (Vegan Cafe)</option>';
+            Name_options_str  += '<option value="Hi-Tec Timber Merchants">Hi-Tec Timber Merchants</option>';
+            Name_options_str  += '<option value="Hollington Fish & Chips">Hollington Fish & Chips</option>';
+            Name_options_str  += '<option value="House Of Habibi">House Of Habibi</option>';
+            Name_options_str  += '<option value="Isabella">Isabella</option>';
+            Name_options_str  += '<option value="Italian Way">Italian Way</option>';
+            Name_options_str  += '<option value="J Hayden Carpets">J Hayden Carpets</option>';
+            Name_options_str  += '<option value="Jali (Indian)">Jali (Indian)</option>';
+            Name_options_str  += '<option value="Jasmine Thai">Jasmine Thai</option>';
+            Name_options_str  += '<option value="Jolly Fisherman (Micro Pub)">Jolly Fisherman (Micro Pub)</option>';
+            Name_options_str  += '<option value="Judge&apos;s Bakery">Judge&apos;s Bakery</option>';
+            Name_options_str  += '<option value="Kassa">Kassa</option>';
+            Name_options_str  += '<option value="Kassa Optics">Kassa Optics</option>';
+            Name_options_str  += '<option value="Kiley&apos;s Karpets">Kiley&apos;s Karpets</option>';
+            Name_options_str  += '<option value="Kirin Buffet Restaurant">Kirin Buffet Restaurant</option>';
+            Name_options_str  += '<option value="La Bella Vista">La Bella Vista</option>';
+            Name_options_str  += '<option value="Lighthouse, The (Fish & Chips)">Lighthouse, The (Fish & Chips)</option>';
+            Name_options_str  += '<option value="Lilac Room">Lilac Room</option>';
+            Name_options_str  += '<option value="Little Mill Bakery">Little Mill Bakery</option>';
+            Name_options_str  += '<option value="Little Treasures">Little Treasures</option>';
+            Name_options_str  += '<option value="MV Hardware">MV Hardware</option>';
+            Name_options_str  += '<option value="Maggie&apos;s Classic Fish & Chips">Maggie&apos;s Classic Fish & Chips</option>';
+            Name_options_str  += '<option value="Mame&apos;s Place">Mame&apos;s Place</option>';
             Name_options_str  += '<option value="Marrakesh">Marrakesh</option>';
             Name_options_str  += '<option value="Monelli&apos;s">Monelli&apos;s</option>';
+            Name_options_str  += '<option value="Moon&apos;s">Moon&apos;s</option>';
+            Name_options_str  += '<option value="Muktha Tandoori">Muktha Tandoori</option>';
+            Name_options_str  += '<option value="Nice Chinese Takeaway">Nice Chinese Takeaway</option>';
+            Name_options_str  += '<option value="Oak Bakery">Oak Bakery</option>';
+            Name_options_str  += '<option value="Ocean Spice">Ocean Spice</option>';
+            Name_options_str  += '<option value="Oregano Leaf Pizzeria">Oregano Leaf Pizzeria</option>';
+            Name_options_str  += '<option value="Oriental Supermarket">Oriental Supermarket</option>';
+            Name_options_str  += '<option value="Outdoorsman">Outdoorsman</option>';
+            Name_options_str  += '<option value="PA Fisher & Son (Butcher)">PA Fisher & Son (Butcher)</option>';
+            Name_options_str  += '<option value="Pearl & Queenie">Pearl & Queenie</option>';
+            Name_options_str  += '<option value="Peking Garden">Peking Garden</option>';
+            Name_options_str  += '<option value="Pelham&apos;s Fine Furniture & Ceramics">Pelham&apos;s Fine Furniture & Ceramics</option>';
+            Name_options_str  += '<option value="Pelican Diner">Pelican Diner</option>';
+            Name_options_str  += '<option value="Penbuckles Deli">Penbuckles Deli</option>';
+            Name_options_str  += '<option value="Peridot Jewellers">Peridot Jewellers</option>';
             Name_options_str  += '<option value="Petit Fi">Petit Fi</option>';
-            Name_options_str  += '<option value="The Jolly Fisherman">The Jolly Fisherman</option>';
+            Name_options_str  += '<option value="Portobello Furniture">Portobello Furniture</option>';
+            Name_options_str  += '<option value="RX Fisheries">RX Fisheries</option>';
+            Name_options_str  += '<option value="Remy&apos;s Kulinarya">Remy&apos;s Kulinarya</option>';
+            Name_options_str  += '<option value="Respire Living">Respire Living</option>';
+            Name_options_str  += '<option value="Reste">Reste</option>';
+            Name_options_str  += '<option value="Rock Optika">Rock Optika</option>';
+            Name_options_str  += '<option value="Rock-A-Nore Fisheries">Rock-A-Nore Fisheries</option>';
+            Name_options_str  += '<option value="Sea Zone (Indian)">Sea Zone (Indian)</option>';
+            Name_options_str  += '<option value="Shish">Shish</option>';
+            Name_options_str  += '<option value="Siam 2">Siam 2</option>';
+            Name_options_str  += '<option value="Sideshow Interiors">Sideshow Interiors</option>';
+            Name_options_str  += '<option value="St Leonards Grocery">St Leonards Grocery</option>';
+            Name_options_str  += '<option value="St Leonards Modern Goods">St Leonards Modern Goods</option>';
+            Name_options_str  += '<option value="Sussex Fruits">Sussex Fruits</option>';
+            Name_options_str  += '<option value="Tandoori Ghor">Tandoori Ghor</option>';
+            Name_options_str  += '<option value="Tommy&apos;s Pizzeria">Tommy&apos;s Pizzeria</option>';
             Name_options_str  += '<option value="Trinity Wholefoods">Trinity Wholefoods</option>';
+            Name_options_str  += '<option value="Turret Grill">Turret Grill</option>';
+            Name_options_str  += '<option value="Two Bulls Steakhouse">Two Bulls Steakhouse</option>';
+            Name_options_str  += '<option value="Vale Hardware">Vale Hardware</option>';
+            Name_options_str  += '<option value="Vamp">Vamp</option>';
+            Name_options_str  += '<option value="Voodoo Sirens">Voodoo Sirens</option>';
             Name_options_str  += '<option value="Warp & Weft">Warp & Weft</option>';
+            Name_options_str  += '<option value="Who&apos;s Wearing What">Who&apos;s Wearing What</option>';
+            Name_options_str  += '<option value="Winchester&apos;s Building Supplies">Winchester&apos;s Building Supplies</option>';
+            Name_options_str  += '<option value="Wok You Like">Wok You Like</option>';
+            Name_options_str  += '<option value="Wonderfill">Wonderfill</option>';
+            Name_options_str  += '<option value="Xanadu">Xanadu</option>';
+            Name_options_str  += '<option value="Yi Pin (Chinese)">Yi Pin (Chinese)</option>';
             sel_Name.innerHTML = Name_options_str;
             div_Name.appendChild(sel_Name);
             var lab_Name = document.createElement('div');
