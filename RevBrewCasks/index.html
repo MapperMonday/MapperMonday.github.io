@@ -96,12 +96,18 @@
                         <th scope="row">SerialNo</th>\
                         <td>' + (feature.properties['SerialNo'] !== null ? autolinker.link(feature.properties['SerialNo'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <th scope="row">Type</th>\
+                        <td>' + (feature.properties['Type'] !== null ? autolinker.link(feature.properties['Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_CaskLocator_1_0() {
-            return {
+        function style_CaskLocator_1_0(feature) {
+            switch(String(feature.properties['Type'])) {
+                case '1':
+                    return {
                 pane: 'pane_CaskLocator_1',
                 radius: 4.0,
                 opacity: 1,
@@ -112,8 +118,58 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(232,113,141,1.0)',
+                fillColor: 'rgba(255,0,0,1.0)',
                 interactive: true,
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_CaskLocator_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(51,160,44,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_CaskLocator_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(90,141,229,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'NULL':
+                    return {
+                pane: 'pane_CaskLocator_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+                    break;
             }
         }
         map.createPane('pane_CaskLocator_1');
@@ -161,6 +217,8 @@
                     this._div.innerHTML = 'Click points to show number of casks and serial numbers/notes<br />Use controls to zoom in/out<br /><br />Produced by: Mapper Monday www.mappermonday.co.uk';
             };
             abstract.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'CaskLocator<br /><table><tr><td style="text-align: center;"><img src="legend/CaskLocator_1_Pub0.png" /></td><td>Pub</td></tr><tr><td style="text-align: center;"><img src="legend/CaskLocator_1_Brewery1.png" /></td><td>Brewery</td></tr><tr><td style="text-align: center;"><img src="legend/CaskLocator_1_Wholesaler2.png" /></td><td>Wholesaler</td></tr><tr><td style="text-align: center;"><img src="legend/CaskLocator_1_3.png" /></td><td></td></tr></table>': layer_CaskLocator_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_CaskLocator_1,
