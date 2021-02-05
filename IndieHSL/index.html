@@ -8,6 +8,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -16,7 +18,7 @@
             margin: 0;
         }
         </style>
-        <title>Independent Businesses & Artisans In Hastings & St Leonards</title>
+        <title>Indie Hastings & St Leonards - The Sellers</title>
     </head>
     <body>
         <div id="map">
@@ -31,16 +33,18 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
         <script src="data/Roads_1.js"></script>
         <script src="data/Pedestrianised_2.js"></script>
         <script src="data/PubBarCafeRestaurant_3.js"></script>
         <script src="data/FoodDrinkRetail_4.js"></script>
-        <script src="data/TextileClothingFootwear_5.js"></script>
+        <script src="data/FashionBeauty_5.js"></script>
         <script src="data/LifestyleGifts_6.js"></script>
         <script src="data/HomeGarden_7.js"></script>
-        <script src="data/AntiquesCollectibles_8.js"></script>
-        <script src="data/Artisans_9.js"></script>
-        <script src="data/Zones_10.js"></script>
+        <script src="data/Antiques_8.js"></script>
+        <script src="data/Zones_9.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -419,6 +423,10 @@
                         <th scope="row">Website</th>\
                         <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <th scope="row">SubCategory</th>\
+                        <td>' + (feature.properties['SubCat'] !== null ? autolinker.link(feature.properties['SubCat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
@@ -485,6 +493,10 @@
                         <th scope="row">Website</th>\
                         <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <th scope="row">SubCategory</th>\
+                        <td>' + (feature.properties['SubCat'] !== null ? autolinker.link(feature.properties['SubCat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
@@ -525,7 +537,7 @@
         });
         bounds_group.addLayer(layer_FoodDrinkRetail_4);
         map.addLayer(layer_FoodDrinkRetail_4);
-        function pop_TextileClothingFootwear_5(feature, layer) {
+        function pop_FashionBeauty_5(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -551,13 +563,17 @@
                         <th scope="row">Website</th>\
                         <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <th scope="row">SubCategory</th>\
+                        <td>' + (feature.properties['SubCat'] !== null ? autolinker.link(feature.properties['SubCat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_TextileClothingFootwear_5_0() {
+        function style_FashionBeauty_5_0() {
             return {
-                pane: 'pane_TextileClothingFootwear_5',
+                pane: 'pane_FashionBeauty_5',
                 shape: 'square',
                 radius: 4.0,
                 opacity: 1,
@@ -572,26 +588,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_TextileClothingFootwear_5');
-        map.getPane('pane_TextileClothingFootwear_5').style.zIndex = 405;
-        map.getPane('pane_TextileClothingFootwear_5').style['mix-blend-mode'] = 'normal';
-        var layer_TextileClothingFootwear_5 = new L.geoJson(json_TextileClothingFootwear_5, {
+        map.createPane('pane_FashionBeauty_5');
+        map.getPane('pane_FashionBeauty_5').style.zIndex = 405;
+        map.getPane('pane_FashionBeauty_5').style['mix-blend-mode'] = 'normal';
+        var layer_FashionBeauty_5 = new L.geoJson(json_FashionBeauty_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_TextileClothingFootwear_5',
-            layerName: 'layer_TextileClothingFootwear_5',
-            pane: 'pane_TextileClothingFootwear_5',
-            onEachFeature: pop_TextileClothingFootwear_5,
+            dataVar: 'json_FashionBeauty_5',
+            layerName: 'layer_FashionBeauty_5',
+            pane: 'pane_FashionBeauty_5',
+            onEachFeature: pop_FashionBeauty_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.shapeMarker(latlng, style_TextileClothingFootwear_5_0(feature));
+                return L.shapeMarker(latlng, style_FashionBeauty_5_0(feature));
             },
         });
-        bounds_group.addLayer(layer_TextileClothingFootwear_5);
-        map.addLayer(layer_TextileClothingFootwear_5);
+        bounds_group.addLayer(layer_FashionBeauty_5);
+        map.addLayer(layer_FashionBeauty_5);
         function pop_LifestyleGifts_6(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -617,6 +633,10 @@
                     <tr>\
                         <th scope="row">Website</th>\
                         <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SubCategory</th>\
+                        <td>' + (feature.properties['SubCat'] !== null ? autolinker.link(feature.properties['SubCat'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -685,6 +705,10 @@
                         <th scope="row">Website</th>\
                         <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <th scope="row">SubCategory</th>\
+                        <td>' + (feature.properties['SubCat'] !== null ? autolinker.link(feature.properties['SubCat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
@@ -726,7 +750,7 @@
         });
         bounds_group.addLayer(layer_HomeGarden_7);
         map.addLayer(layer_HomeGarden_7);
-        function pop_AntiquesCollectibles_8(feature, layer) {
+        function pop_Antiques_8(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -752,13 +776,18 @@
                         <th scope="row">Website</th>\
                         <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <th scope="row">SubCategory</th>\
+                        <td>' + (feature.properties['SubCat'] !== null ? autolinker.link(feature.properties['SubCat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_AntiquesCollectibles_8_0() {
+        function style_Antiques_8_0() {
             return {
-                pane: 'pane_AntiquesCollectibles_8',
+                pane: 'pane_Antiques_8',
+                shape: 'triangle',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -772,94 +801,27 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_AntiquesCollectibles_8');
-        map.getPane('pane_AntiquesCollectibles_8').style.zIndex = 408;
-        map.getPane('pane_AntiquesCollectibles_8').style['mix-blend-mode'] = 'normal';
-        var layer_AntiquesCollectibles_8 = new L.geoJson(json_AntiquesCollectibles_8, {
+        map.createPane('pane_Antiques_8');
+        map.getPane('pane_Antiques_8').style.zIndex = 408;
+        map.getPane('pane_Antiques_8').style['mix-blend-mode'] = 'normal';
+        var layer_Antiques_8 = new L.geoJson(json_Antiques_8, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_AntiquesCollectibles_8',
-            layerName: 'layer_AntiquesCollectibles_8',
-            pane: 'pane_AntiquesCollectibles_8',
-            onEachFeature: pop_AntiquesCollectibles_8,
+            dataVar: 'json_Antiques_8',
+            layerName: 'layer_Antiques_8',
+            pane: 'pane_Antiques_8',
+            onEachFeature: pop_Antiques_8,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.shapeMarker(latlng, style_AntiquesCollectibles_8_0(feature));
+                return L.shapeMarker(latlng, style_Antiques_8_0(feature));
             },
         });
-        bounds_group.addLayer(layer_AntiquesCollectibles_8);
-        map.addLayer(layer_AntiquesCollectibles_8);
-        function pop_Artisans_9(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">Name</th>\
-                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Address</th>\
-                        <td>' + (feature.properties['Address'] !== null ? autolinker.link(feature.properties['Address'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Phone</th>\
-                        <td>' + (feature.properties['Phone'] !== null ? autolinker.link(feature.properties['Phone'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Website</th>\
-                        <td>' + (feature.properties['Website'] !== null ? autolinker.link(feature.properties['Website'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Artisans_9_0() {
-            return {
-                pane: 'pane_Artisans_9',
-                shape: 'diamond',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(152,125,183,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_Artisans_9');
-        map.getPane('pane_Artisans_9').style.zIndex = 409;
-        map.getPane('pane_Artisans_9').style['mix-blend-mode'] = 'normal';
-        var layer_Artisans_9 = new L.geoJson(json_Artisans_9, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Artisans_9',
-            layerName: 'layer_Artisans_9',
-            pane: 'pane_Artisans_9',
-            onEachFeature: pop_Artisans_9,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.shapeMarker(latlng, style_Artisans_9_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_Artisans_9);
-        map.addLayer(layer_Artisans_9);
-        function pop_Zones_10(feature, layer) {
+        bounds_group.addLayer(layer_Antiques_8);
+        map.addLayer(layer_Antiques_8);
+        function pop_Zones_9(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -877,9 +839,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Zones_10_0() {
+        function style_Zones_9_0() {
             return {
-                pane: 'pane_Zones_10',
+                pane: 'pane_Zones_9',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.5)',
                 dashArray: '',
@@ -892,20 +854,20 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_Zones_10');
-        map.getPane('pane_Zones_10').style.zIndex = 410;
-        map.getPane('pane_Zones_10').style['mix-blend-mode'] = 'normal';
-        var layer_Zones_10 = new L.geoJson(json_Zones_10, {
+        map.createPane('pane_Zones_9');
+        map.getPane('pane_Zones_9').style.zIndex = 409;
+        map.getPane('pane_Zones_9').style['mix-blend-mode'] = 'normal';
+        var layer_Zones_9 = new L.geoJson(json_Zones_9, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_Zones_10',
-            layerName: 'layer_Zones_10',
-            pane: 'pane_Zones_10',
-            onEachFeature: pop_Zones_10,
-            style: style_Zones_10_0,
+            dataVar: 'json_Zones_9',
+            layerName: 'layer_Zones_9',
+            pane: 'pane_Zones_9',
+            onEachFeature: pop_Zones_9,
+            style: style_Zones_9_0,
         });
-        bounds_group.addLayer(layer_Zones_10);
-        map.addLayer(layer_Zones_10);
+        bounds_group.addLayer(layer_Zones_9);
+        map.addLayer(layer_Zones_9);
         map.on("zoomend", function(e) {
             if (map.getZoom() <= 19 && map.getZoom() >= 14) {
                 map.addLayer(layer_Roads_1);
@@ -918,9 +880,9 @@
                 map.removeLayer(layer_Pedestrianised_2);
             }
             if (map.getZoom() <= 14 && map.getZoom() >= 2) {
-                map.addLayer(layer_Zones_10);
+                map.addLayer(layer_Zones_9);
             } else if (map.getZoom() > 14 || map.getZoom() < 2) {
-                map.removeLayer(layer_Zones_10);
+                map.removeLayer(layer_Zones_9);
             }
         });
             if (map.getZoom() <= 19 && map.getZoom() >= 14) {
@@ -934,9 +896,9 @@
                 map.removeLayer(layer_Pedestrianised_2);
             }
             if (map.getZoom() <= 14 && map.getZoom() >= 2) {
-                map.addLayer(layer_Zones_10);
+                map.addLayer(layer_Zones_9);
             } else if (map.getZoom() > 14 || map.getZoom() < 2) {
-                map.removeLayer(layer_Zones_10);
+                map.removeLayer(layer_Zones_9);
             }
             var title = new L.Control();
             title.onAdd = function (map) {
@@ -945,10 +907,10 @@
                 return this._div;
             };
             title.update = function () {
-                this._div.innerHTML = '<h2>Independent Businesses & Artisans In Hastings & St Leonards</h2>';
+                this._div.innerHTML = '<h2>Indie Hastings & St Leonards - The Sellers</h2>';
             };
             title.addTo(map);
-            var abstract = new L.Control({'position':'bottomleft'});
+            var abstract = new L.Control({'position':'bottomright'});
             abstract.onAdd = function (map) {
                 this._div = L.DomUtil.create('div',
                 'leaflet-control abstract');
@@ -960,34 +922,228 @@
                 abstract.show = function () {
                     this._div.classList.remove("abstract");
                     this._div.classList.add("abstractUncollapsed");
-                    this._div.innerHTML = 'Click locator symbols for business details. Turn on/off layers using the tick boxes. Select an individual business by selecting from the long list. Zoom in/out using controls.<br /><br />Produced by Mapper Monday - www.mappermonday.co.uk';
+                    this._div.innerHTML = 'Click symbols for business details. Layer on/off use tick boxes. Filter within category - select sub-category from list. Search for business by name using magnifying glass.<br /><br />Produced by Mapper Monday - www.mappermonday.co.uk';
             };
             abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Zones_10.png" /> Zones': layer_Zones_10,'<img src="legend/Artisans_9.png" /> Artisans': layer_Artisans_9,'<img src="legend/AntiquesCollectibles_8.png" /> Antiques & Collectibles': layer_AntiquesCollectibles_8,'<img src="legend/HomeGarden_7.png" /> Home & Garden': layer_HomeGarden_7,'<img src="legend/LifestyleGifts_6.png" /> Lifestyle & Gifts': layer_LifestyleGifts_6,'<img src="legend/TextileClothingFootwear_5.png" /> Textile, Clothing & Footwear': layer_TextileClothingFootwear_5,'<img src="legend/FoodDrinkRetail_4.png" /> Food & Drink Retail': layer_FoodDrinkRetail_4,'<img src="legend/PubBarCafeRestaurant_3.png" /> Pub, Bar, Cafe & Restaurant': layer_PubBarCafeRestaurant_3,'<img src="legend/Pedestrianised_2.png" /> Pedestrianised': layer_Pedestrianised_2,'<img src="legend/Roads_1.png" /> Roads': layer_Roads_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/Zones_9.png" /> Zones': layer_Zones_9,'<img src="legend/Antiques_8.png" /> Antiques': layer_Antiques_8,'<img src="legend/HomeGarden_7.png" /> Home & Garden': layer_HomeGarden_7,'<img src="legend/LifestyleGifts_6.png" /> Lifestyle & Gifts': layer_LifestyleGifts_6,'<img src="legend/FashionBeauty_5.png" /> Fashion & Beauty': layer_FashionBeauty_5,'<img src="legend/FoodDrinkRetail_4.png" /> Food & Drink Retail': layer_FoodDrinkRetail_4,'<img src="legend/PubBarCafeRestaurant_3.png" /> Pub, Bar, Cafe & Restaurant': layer_PubBarCafeRestaurant_3,'<img src="legend/Pedestrianised_2.png" /> Pedestrianised': layer_Pedestrianised_2,'<img src="legend/Roads_1.png" /> Roads': layer_Roads_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
         setBounds();
         var i = 0;
-        layer_Zones_10.eachLayer(function(layer) {
+        layer_Zones_9.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #ff0000; font-size: 6pt; font-weight: bold; font-family: \'Verdana\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Zones_10'});
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #ff0000; font-size: 7pt; font-weight: bold; font-family: \'Verdana\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Zones_9'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
               i++;
         });
-        resetLabels([layer_Zones_10]);
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"SubCat": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+        var i = 0;
+        layer_Zones_9.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #ff0000; font-size: 7pt; font-weight: bold; font-family: \'Verdana\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Zones_9'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_SubCat = document.createElement('div');
+            div_SubCat.id = "div_SubCat";
+            div_SubCat.className= "filterselect";
+            document.getElementById("menu").appendChild(div_SubCat);
+            sel_SubCat = document.createElement('select');
+            sel_SubCat.multiple = true;
+            sel_SubCat.size = 10;
+            sel_SubCat.id = "sel_SubCat";
+            var SubCat_options_str = "<option value='' unselected></option>";
+            sel_SubCat.onchange = function(){filterFunc()};
+            SubCat_options_str  += '<option value="Antiques - Collectibles">Antiques - Collectibles</option>';
+            SubCat_options_str  += '<option value="Antiques - General">Antiques - General</option>';
+            SubCat_options_str  += '<option value="Antiques - General/Salvage">Antiques - General/Salvage</option>';
+            SubCat_options_str  += '<option value="Antiques - Interiors">Antiques - Interiors</option>';
+            SubCat_options_str  += '<option value="Fashion & Beauty - Accessories">Fashion & Beauty - Accessories</option>';
+            SubCat_options_str  += '<option value="Fashion & Beauty - Boutique">Fashion & Beauty - Boutique</option>';
+            SubCat_options_str  += '<option value="Fashion & Beauty - Outdoors">Fashion & Beauty - Outdoors</option>';
+            SubCat_options_str  += '<option value="Fashion & Beauty - Toiletries/Cosmetics">Fashion & Beauty - Toiletries/Cosmetics</option>';
+            SubCat_options_str  += '<option value="Fashion & Beauty - Vintage">Fashion & Beauty - Vintage</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Bakery">Food & Drink - Bakery</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Beer & Wine">Food & Drink - Beer & Wine</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Butcher">Food & Drink - Butcher</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Deli">Food & Drink - Deli</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Fishmonger">Food & Drink - Fishmonger</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Fruit & Veg">Food & Drink - Fruit & Veg</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Grocery">Food & Drink - Grocery</option>';
+            SubCat_options_str  += '<option value="Food & Drink - Grocery (International)">Food & Drink - Grocery (International)</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Bathrooms">Home & Garden - Bathrooms</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Builders Merchants">Home & Garden - Builders Merchants</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Carpets">Home & Garden - Carpets</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Computers">Home & Garden - Computers</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Electricals">Home & Garden - Electricals</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Florist & Nursery">Home & Garden - Florist & Nursery</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Furnishings">Home & Garden - Furnishings</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Hardware">Home & Garden - Hardware</option>';
+            SubCat_options_str  += '<option value="Home & Garden - Kitchens">Home & Garden - Kitchens</option>';
+            SubCat_options_str  += '<option value="Lifestyle & Gifts - Books & Music">Lifestyle & Gifts - Books & Music</option>';
+            SubCat_options_str  += '<option value="Lifestyle & Gifts - Confectionery">Lifestyle & Gifts - Confectionery</option>';
+            SubCat_options_str  += '<option value="Lifestyle & Gifts - Cycles">Lifestyle & Gifts - Cycles</option>';
+            SubCat_options_str  += '<option value="Lifestyle & Gifts - Gifts">Lifestyle & Gifts - Gifts</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Bistro/Restaurant">Pubs & Eateries - Bistro/Restaurant</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Burgers/Steak">Pubs & Eateries - Burgers/Steak</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Cafe/Coffee">Pubs & Eateries - Cafe/Coffee</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Chinese/Pan-Asian">Pubs & Eateries - Chinese/Pan-Asian</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Fish">Pubs & Eateries - Fish</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Indian">Pubs & Eateries - Indian</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Italian">Pubs & Eateries - Italian</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Middle Eastern">Pubs & Eateries - Middle Eastern</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Nepalese">Pubs & Eateries - Nepalese</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - North African">Pubs & Eateries - North African</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Pub">Pubs & Eateries - Pub</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries - Thai">Pubs & Eateries - Thai</option>';
+            SubCat_options_str  += '<option value="Pubs & Eateries -Afro-Caribbean">Pubs & Eateries -Afro-Caribbean</option>';
+            sel_SubCat.innerHTML = SubCat_options_str;
+            div_SubCat.appendChild(sel_SubCat);
+            var lab_SubCat = document.createElement('div');
+            lab_SubCat.innerHTML = 'SubCat';
+            lab_SubCat.className = 'filterlabel';
+            div_SubCat.appendChild(lab_SubCat);
+            var reset_SubCat = document.createElement('div');
+            reset_SubCat.innerHTML = 'clear filter';
+            reset_SubCat.className = 'filterlabel';
+            reset_SubCat.onclick = function() {
+                var options = document.getElementById("sel_SubCat").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_SubCat.appendChild(reset_SubCat);
+        resetLabels([layer_Zones_9]);
         map.on("zoomend", function(){
-            resetLabels([layer_Zones_10]);
+            resetLabels([layer_Zones_9]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_Zones_10]);
+            resetLabels([layer_Zones_9]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_Zones_10]);
+            resetLabels([layer_Zones_9]);
         });
         </script>
     </body>
