@@ -8,6 +8,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -32,6 +34,9 @@
         <script src="js/labels.js"></script>
         <script src="js/proj4.js"></script>
         <script src="js/proj4leaflet.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
         <script src="data/Circuitry_0.js"></script>
         <script src="data/CircuitHubs_1.js"></script>
         <script src="data/ArtistsLabels_2.js"></script>
@@ -53,21 +58,6 @@
         function geoStyle(m) {
             return Math.ceil(m * m2px);
         }
-        var highlightLayer;
-        function highlightFeature(e) {
-            highlightLayer = e.target;
-
-            if (e.target.feature.geometry.type === 'LineString') {
-              highlightLayer.setStyle({
-                color: '#ff0400',
-              });
-            } else {
-              highlightLayer.setStyle({
-                fillColor: '#ff0400',
-                fillOpacity: 1
-              });
-            }
-        }
         var crs = new L.Proj.CRS('EPSG:27700', '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +units=m +no_defs', {
             resolutions: [2800, 1400, 700, 350, 175, 84, 42, 21, 11.2, 5.6, 2.8, 1.4, 0.7, 0.35, 0.14, 0.07],
         });
@@ -75,8 +65,8 @@
             crs: crs,
             continuousWorld: false,
             worldCopyJump: false, 
-            zoomControl:true, maxZoom:3, minZoom:1
-        }).fitBounds([[53.60407674033336,-2.0522798475772133],[53.94343392849042,-1.3772551229220482]]);
+            zoomControl:true, maxZoom:4, minZoom:1
+        }).fitBounds([[50.430224099816606,-8.786506974635099],[56.641215618895124,4.865320376239296]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -84,14 +74,6 @@
         function setBounds() {
         }
         function pop_Circuitry_0(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
@@ -117,7 +99,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(380.0),
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['Hierarchy'] >= 1.000000 && feature.properties['Hierarchy'] <= 2.000000 ) {
@@ -130,7 +112,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(760.0),
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['Hierarchy'] >= 2.000000 && feature.properties['Hierarchy'] <= 3.000000 ) {
@@ -143,7 +125,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(1140.0),
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
             }
             if (feature.properties['Hierarchy'] >= 3.000000 && feature.properties['Hierarchy'] <= 4.000000 ) {
@@ -156,7 +138,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(1520.0),
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
             }
         }
@@ -165,7 +147,7 @@
         map.getPane('pane_Circuitry_0').style['mix-blend-mode'] = 'normal';
         var layer_Circuitry_0 = new L.geoJson(json_Circuitry_0, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Circuitry_0',
             layerName: 'layer_Circuitry_0',
             pane: 'pane_Circuitry_0',
@@ -175,20 +157,9 @@
         bounds_group.addLayer(layer_Circuitry_0);
         map.addLayer(layer_Circuitry_0);
         function pop_CircuitHubs_1(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['HubName'] !== null ? autolinker.link(feature.properties['HubName'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -206,7 +177,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(4,99,7,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_CircuitHubs_1');
@@ -214,7 +185,7 @@
         map.getPane('pane_CircuitHubs_1').style['mix-blend-mode'] = 'normal';
         var layer_CircuitHubs_1 = new L.geoJson(json_CircuitHubs_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_CircuitHubs_1',
             layerName: 'layer_CircuitHubs_1',
             pane: 'pane_CircuitHubs_1',
@@ -224,14 +195,6 @@
         bounds_group.addLayer(layer_CircuitHubs_1);
         map.addLayer(layer_CircuitHubs_1);
         function pop_ArtistsLabels_2(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
@@ -253,13 +216,13 @@
             if (feature.properties['q2wHide_Type'] >= 1.000000 && feature.properties['q2wHide_Type'] <= 1.000000 ) {
                 return {
                 pane: 'pane_ArtistsLabels_2',
-                radius: 6.0,
+                radius: geoStyle(1500.0),
                 opacity: 1,
                 color: 'rgba(255,221,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1,
+                weight: geoStyle(1),
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,221,0,1.0)',
@@ -269,13 +232,13 @@
             if (feature.properties['q2wHide_Type'] >= 1.000000 && feature.properties['q2wHide_Type'] <= 2.000000 ) {
                 return {
                 pane: 'pane_ArtistsLabels_2',
-                radius: 7.0,
+                radius: geoStyle(1500.0),
                 opacity: 1,
                 color: 'rgba(255,221,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 2.0,
+                weight: geoStyle(950.0),
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(4,99,7,1.0)',
@@ -334,16 +297,266 @@
                     this._div.innerHTML = 'During lockdown I taught myself how to use GIS (Geographical Information System) software.  At the same time I was disappearing down an ever-widening Bandcamp rabbit hole which started with A Year In The Country and expanded via Polytechnic Youth, Castles In Space, Clay Pipe and Woodford Halse.<br /><br />As I got to know a little more about some of the artists it struck me how many were making fantastic music from less-heralded places around the UK.  So I wondered what it would look like mapped.  I\'d produced a number of conventional topographical maps but the idea occured to me to make something more topologically stylized and what better I thought than a circuitboard.  It works much the same way as Harry Beck\'s London Underground map where every angle is either 45- or 90-degrees.<br /><br />In making the map I\'ve discovered a number of labels and artists new to me which has allowed me to populate the map a little more.  I had to do some sleuthing to work out where a good number of the artists are based.  Any errors do let me know.  If you\'re making experimental electronic music and/or music of a hauntological bent let me know and I\'ll add you to the map. It\'s by no means a comprehensive picture..yet, so any leads to artists or labels gratefully received.  I can be contacted via my website.<br /><br />Thanks and keep twiddling!<br /><br />Mapper Monday 2020<br />www.mappermonday.co.uk';
             };
             abstract.addTo(map);
+        map.on("zoomend", function(){
+
+                if (map.hasLayer(layer_CircuitHubs_1)) {
+                    if (map.getZoom() <= 8 && map.getZoom() >= 19) {
+                        layer_CircuitHubs_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_CircuitHubs_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
         setBounds();
+                if (map.hasLayer(layer_CircuitHubs_1)) {
+                    if (map.getZoom() <= 8 && map.getZoom() >= 19) {
+                        layer_CircuitHubs_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_CircuitHubs_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
         newM2px();
 
             layer_Circuitry_0.setStyle(style_Circuitry_0_0);
             layer_CircuitHubs_1.setStyle(style_CircuitHubs_1_0);
+            layer_ArtistsLabels_2.setStyle(style_ArtistsLabels_2_0);
         map.on("zoomend", function(){
             newM2px();
 
             layer_Circuitry_0.setStyle(style_Circuitry_0_0);
             layer_CircuitHubs_1.setStyle(style_CircuitHubs_1_0);
+            layer_ArtistsLabels_2.setStyle(style_ArtistsLabels_2_0);
+        });
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Name": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Name = document.createElement('div');
+            div_Name.id = "div_Name";
+            div_Name.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Name);
+            sel_Name = document.createElement('select');
+            sel_Name.multiple = true;
+            sel_Name.size = 10;
+            sel_Name.id = "sel_Name";
+            var Name_options_str = "<option value='' unselected></option>";
+            sel_Name.onchange = function(){filterFunc()};
+            Name_options_str  += '<option value="Adventsong">Adventsong</option>';
+            Name_options_str  += '<option value="Apocalypse Then">Apocalypse Then</option>';
+            Name_options_str  += '<option value="Apta">Apta</option>';
+            Name_options_str  += '<option value="Asa">Asa</option>';
+            Name_options_str  += '<option value="Autoflag">Autoflag</option>';
+            Name_options_str  += '<option value="Azyss">Azyss</option>';
+            Name_options_str  += '<option value="BUNKR">BUNKR</option>';
+            Name_options_str  += '<option value="Beam Weapons">Beam Weapons</option>';
+            Name_options_str  += '<option value="Bell Lungs">Bell Lungs</option>';
+            Name_options_str  += '<option value="Black Tempest">Black Tempest</option>';
+            Name_options_str  += '<option value="Buried Treasure">Buried Treasure</option>';
+            Name_options_str  += '<option value="Castles In Space">Castles In Space</option>';
+            Name_options_str  += '<option value="Clay Pipe Music">Clay Pipe Music</option>';
+            Name_options_str  += '<option value="Concretism">Concretism</option>';
+            Name_options_str  += '<option value="Correlations">Correlations</option>';
+            Name_options_str  += '<option value="Craven Faults">Craven Faults</option>';
+            Name_options_str  += '<option value="Dalham">Dalham</option>';
+            Name_options_str  += '<option value="Dead Leg">Dead Leg</option>';
+            Name_options_str  += '<option value="Disintegration State">Disintegration State</option>';
+            Name_options_str  += '<option value="Drew Mullholland">Drew Mullholland</option>';
+            Name_options_str  += '<option value="FLVZ">FLVZ</option>';
+            Name_options_str  += '<option value="Field Lines Cartographer">Field Lines Cartographer</option>';
+            Name_options_str  += '<option value="Floodlights">Floodlights</option>';
+            Name_options_str  += '<option value="Fragile X">Fragile X</option>';
+            Name_options_str  += '<option value="Gavin Miller">Gavin Miller</option>';
+            Name_options_str  += '<option value="Ghost Box Records">Ghost Box Records</option>';
+            Name_options_str  += '<option value="Ghost Halo">Ghost Halo</option>';
+            Name_options_str  += '<option value="Golden Ratio Frequencies">Golden Ratio Frequencies</option>';
+            Name_options_str  += '<option value="Grey Frequency">Grey Frequency</option>';
+            Name_options_str  += '<option value="Hattie Cooke">Hattie Cooke</option>';
+            Name_options_str  += '<option value="Heartwood Institute">Heartwood Institute</option>';
+            Name_options_str  += '<option value="Henry Courgette">Henry Courgette</option>';
+            Name_options_str  += '<option value="Jacob Nico">Jacob Nico</option>';
+            Name_options_str  += '<option value="Jon Hopkins">Jon Hopkins</option>';
+            Name_options_str  += '<option value="Jumble Hole Clough">Jumble Hole Clough</option>';
+            Name_options_str  += '<option value="Keith Seatman">Keith Seatman</option>';
+            Name_options_str  += '<option value="Kieran Mahon">Kieran Mahon</option>';
+            Name_options_str  += '<option value="Kosmische Laufer">Kosmische Laufer</option>';
+            Name_options_str  += '<option value="Letters From Mouse">Letters From Mouse</option>';
+            Name_options_str  += '<option value="Lo Five">Lo Five</option>';
+            Name_options_str  += '<option value="Lonely Mountain">Lonely Mountain</option>';
+            Name_options_str  += '<option value="Lowering">Lowering</option>';
+            Name_options_str  += '<option value="Melodien">Melodien</option>';
+            Name_options_str  += '<option value="Middx">Middx</option>';
+            Name_options_str  += '<option value="Midwich Youth Club">Midwich Youth Club</option>';
+            Name_options_str  += '<option value="Miracle Pond">Miracle Pond</option>';
+            Name_options_str  += '<option value="Monochrome Echo">Monochrome Echo</option>';
+            Name_options_str  += '<option value="Mute Branches">Mute Branches</option>';
+            Name_options_str  += '<option value="Newlands">Newlands</option>';
+            Name_options_str  += '<option value="Oliver Cherer">Oliver Cherer</option>';
+            Name_options_str  += '<option value="Pictogram">Pictogram</option>';
+            Name_options_str  += '<option value="Polypores">Polypores</option>';
+            Name_options_str  += '<option value="Polytechnic Youth">Polytechnic Youth</option>';
+            Name_options_str  += '<option value="Pulselovers">Pulselovers</option>';
+            Name_options_str  += '<option value="Repeated Viewing">Repeated Viewing</option>';
+            Name_options_str  += '<option value="Simon McCorry">Simon McCorry</option>';
+            Name_options_str  += '<option value="Spaceship (Forged River Recordings)">Spaceship (Forged River Recordings)</option>';
+            Name_options_str  += '<option value="Sproatly Smith">Sproatly Smith</option>';
+            Name_options_str  += '<option value="Steve Hadfield">Steve Hadfield</option>';
+            Name_options_str  += '<option value="Sunbane">Sunbane</option>';
+            Name_options_str  += '<option value="The Central Office of Information">The Central Office of Information</option>';
+            Name_options_str  += '<option value="The Gibraltarians">The Gibraltarians</option>';
+            Name_options_str  += '<option value="The Night Monitor">The Night Monitor</option>';
+            Name_options_str  += '<option value="The Slow Engineer">The Slow Engineer</option>';
+            Name_options_str  += '<option value="The Soulless Party">The Soulless Party</option>';
+            Name_options_str  += '<option value="Time Attendant">Time Attendant</option>';
+            Name_options_str  += '<option value="Tomorrow Syndicate">Tomorrow Syndicate</option>';
+            Name_options_str  += '<option value="Twelve Hour Foundation">Twelve Hour Foundation</option>';
+            Name_options_str  += '<option value="Veins Full of Static">Veins Full of Static</option>';
+            Name_options_str  += '<option value="Vic Mars">Vic Mars</option>';
+            Name_options_str  += '<option value="Violet Mist">Violet Mist</option>';
+            Name_options_str  += '<option value="Vorderhaus">Vorderhaus</option>';
+            Name_options_str  += '<option value="Woodford Halse">Woodford Halse</option>';
+            Name_options_str  += '<option value="Yumah">Yumah</option>';
+            Name_options_str  += '<option value="dogs versus shadows">dogs versus shadows</option>';
+            sel_Name.innerHTML = Name_options_str;
+            div_Name.appendChild(sel_Name);
+            var lab_Name = document.createElement('div');
+            lab_Name.innerHTML = 'Name';
+            lab_Name.className = 'filterlabel';
+            div_Name.appendChild(lab_Name);
+            var reset_Name = document.createElement('div');
+            reset_Name.innerHTML = 'clear filter';
+            reset_Name.className = 'filterlabel';
+            reset_Name.onclick = function() {
+                var options = document.getElementById("sel_Name").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Name.appendChild(reset_Name);
+        resetLabels([layer_CircuitHubs_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_CircuitHubs_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_CircuitHubs_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_CircuitHubs_1]);
         });
         </script>
     </body>
