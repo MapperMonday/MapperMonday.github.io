@@ -1,6 +1,6 @@
-var json_StationsDevon_6 = {
+var json_StationsDevon_11 = {
 "type": "FeatureCollection",
-"name": "StationsDevon_6",
+"name": "StationsDevon_11",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "name": "Polsloe Bridge" }, "geometry": { "type": "Point", "coordinates": [ -3.5009604, 50.7310108 ] } },
@@ -34,22 +34,14 @@ var json_StationsDevon_6 = {
 { "type": "Feature", "properties": { "name": "Lympstone Village" }, "geometry": { "type": "Point", "coordinates": [ -3.4310966, 50.6484198 ] } },
 { "type": "Feature", "properties": { "name": "St Budeaux Victoria Road" }, "geometry": { "type": "Point", "coordinates": [ -4.1877512, 50.402196 ] } },
 { "type": "Feature", "properties": { "name": "St Budeaux Ferry Road" }, "geometry": { "type": "Point", "coordinates": [ -4.1871385, 50.4015641 ] } },
-{ "type": "Feature", "properties": { "name": "Buckfastleigh" }, "geometry": { "type": "Point", "coordinates": [ -3.7686403, 50.4828098 ] } },
-{ "type": "Feature", "properties": { "name": "Totnes Riverside" }, "geometry": { "type": "Point", "coordinates": [ -3.6856839, 50.4394733 ] } },
-{ "type": "Feature", "properties": { "name": "Staverton" }, "geometry": { "type": "Point", "coordinates": [ -3.7149082, 50.4609185 ] } },
 { "type": "Feature", "properties": { "name": "Paignton" }, "geometry": { "type": "Point", "coordinates": [ -3.5649536, 50.4345556 ] } },
-{ "type": "Feature", "properties": { "name": "Goodrington Sands Halt" }, "geometry": { "type": "Point", "coordinates": [ -3.5620133, 50.4253685 ] } },
-{ "type": "Feature", "properties": { "name": "Churston" }, "geometry": { "type": "Point", "coordinates": [ -3.5569399, 50.3961534 ] } },
-{ "type": "Feature", "properties": { "name": "Greenway Halt" }, "geometry": { "type": "Point", "coordinates": [ -3.5730892, 50.3863638 ] } },
 { "type": "Feature", "properties": { "name": "Meldon Viaduct" }, "geometry": { "type": "Point", "coordinates": [ -4.0318574, 50.7148874 ] } },
 { "type": "Feature", "properties": { "name": "Marsh Mills" }, "geometry": { "type": "Point", "coordinates": [ -4.0824638, 50.3949795 ] } },
 { "type": "Feature", "properties": { "name": "Digby and Sowton" }, "geometry": { "type": "Point", "coordinates": [ -3.4736326, 50.7143072 ] } },
 { "type": "Feature", "properties": { "name": "Dawlish Warren" }, "geometry": { "type": "Point", "coordinates": [ -3.4434764, 50.5984815 ] } },
 { "type": "Feature", "properties": { "name": "Starcross" }, "geometry": { "type": "Point", "coordinates": [ -3.4475583, 50.6275859 ] } },
 { "type": "Feature", "properties": { "name": "Portsmouth Arms" }, "geometry": { "type": "Point", "coordinates": [ -3.951232, 50.9570164 ] } },
-{ "type": "Feature", "properties": { "name": "Nappers Halt" }, "geometry": { "type": "Point", "coordinates": [ -3.7025233, 50.4612092 ] } },
 { "type": "Feature", "properties": { "name": "Plym Bridge" }, "geometry": { "type": "Point", "coordinates": [ -4.0793475, 50.408758 ] } },
-{ "type": "Feature", "properties": { "name": "Paignton Queens Park" }, "geometry": { "type": "Point", "coordinates": [ -3.5647477, 50.4343005 ] } },
 { "type": "Feature", "properties": { "name": "Newcourt" }, "geometry": { "type": "Point", "coordinates": [ -3.4725586, 50.7027216 ] } },
 { "type": "Feature", "properties": { "name": "Plymouth" }, "geometry": { "type": "Point", "coordinates": [ -4.1433202, 50.3780005 ] } },
 { "type": "Feature", "properties": { "name": "Exeter St Davids" }, "geometry": { "type": "Point", "coordinates": [ -3.5435703, 50.7292155 ] } },
@@ -65,10 +57,7 @@ var json_StationsDevon_6 = {
 { "type": "Feature", "properties": { "name": "Newton Abbot" }, "geometry": { "type": "Point", "coordinates": [ -3.5992265, 50.5301513 ] } },
 { "type": "Feature", "properties": { "name": "Tiverton Parkway" }, "geometry": { "type": "Point", "coordinates": [ -3.3597427, 50.9170751 ] } },
 { "type": "Feature", "properties": { "name": "Barnstaple" }, "geometry": { "type": "Point", "coordinates": [ -4.0632419, 51.0737291 ] } },
-{ "type": "Feature", "properties": { "name": "Kingswear" }, "geometry": { "type": "Point", "coordinates": [ -3.5723937, 50.34888 ] } },
 { "type": "Feature", "properties": { "name": "Parkside Station" }, "geometry": { "type": "Point", "coordinates": [ -3.7745489, 50.2804378 ] } },
-{ "type": "Feature", "properties": { "name": "Kingsbridge Ria End" }, "geometry": { "type": "Point", "coordinates": [ -3.7755403, 50.2822448 ] } },
-{ "type": "Feature", "properties": { "name": "Killington Lane" }, "geometry": { "type": "Point", "coordinates": [ -3.9036851, 51.1967627 ] } },
-{ "type": "Feature", "properties": { "name": "Woody Bay" }, "geometry": { "type": "Point", "coordinates": [ -3.8874256, 51.2017482 ] } }
+{ "type": "Feature", "properties": { "name": "Kingsbridge Ria End" }, "geometry": { "type": "Point", "coordinates": [ -3.7755403, 50.2822448 ] } }
 ]
 }

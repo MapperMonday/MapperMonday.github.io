@@ -1,6 +1,6 @@
-var json_StationsCornwall_5 = {
+var json_StationsCornwall_10 = {
 "type": "FeatureCollection",
-"name": "StationsCornwall_5",
+"name": "StationsCornwall_10",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "name": "Falmouth Docks" }, "geometry": { "type": "Point", "coordinates": [ -5.05584, 50.150758 ] } },
@@ -25,18 +25,9 @@ var json_StationsCornwall_5 = {
 { "type": "Feature", "properties": { "name": "Lelant" }, "geometry": { "type": "Point", "coordinates": [ -5.4365104, 50.1839692 ] } },
 { "type": "Feature", "properties": { "name": "Lelant Saltings" }, "geometry": { "type": "Point", "coordinates": [ -5.441159, 50.1785858 ] } },
 { "type": "Feature", "properties": { "name": "Quintrell Downs" }, "geometry": { "type": "Point", "coordinates": [ -5.0288475, 50.4041228 ] } },
-{ "type": "Feature", "properties": { "name": "Colesloggett Halt" }, "geometry": { "type": "Point", "coordinates": [ -4.6746399, 50.4598754 ] } },
-{ "type": "Feature", "properties": { "name": "Bodmin General" }, "geometry": { "type": "Point", "coordinates": [ -4.7166011, 50.4658792 ] } },
-{ "type": "Feature", "properties": { "name": "Launceston" }, "geometry": { "type": "Point", "coordinates": [ -4.3648051, 50.6404065 ] } },
 { "type": "Feature", "properties": { "name": "St Ives (Cornwall)" }, "geometry": { "type": "Point", "coordinates": [ -5.4781274, 50.2091362 ] } },
 { "type": "Feature", "properties": { "name": "Sandplace" }, "geometry": { "type": "Point", "coordinates": [ -4.464799, 50.3875961 ] } },
 { "type": "Feature", "properties": { "name": "Newquay" }, "geometry": { "type": "Point", "coordinates": [ -5.0751373, 50.4143924 ] } },
-{ "type": "Feature", "properties": { "name": "Boscarne Junction" }, "geometry": { "type": "Point", "coordinates": [ -4.7613243, 50.4739305 ] } },
-{ "type": "Feature", "properties": { "name": "East Wheal Rose" }, "geometry": { "type": "Point", "coordinates": [ -5.0414814, 50.3622999 ] } },
-{ "type": "Feature", "properties": { "name": "Newlyn Halt" }, "geometry": { "type": "Point", "coordinates": [ -5.0460553, 50.3576343 ] } },
-{ "type": "Feature", "properties": { "name": "Groggly Halt" }, "geometry": { "type": "Point", "coordinates": [ -5.0411698, 50.3621161 ] } },
-{ "type": "Feature", "properties": { "name": "Benny Halt" }, "geometry": { "type": "Point", "coordinates": [ -5.0411177, 50.3757546 ] } },
-{ "type": "Feature", "properties": { "name": "Newmills" }, "geometry": { "type": "Point", "coordinates": [ -4.4060482, 50.640519 ] } },
 { "type": "Feature", "properties": { "name": "Truro" }, "geometry": { "type": "Point", "coordinates": [ -5.0642026, 50.2639862 ] } },
 { "type": "Feature", "properties": { "name": "Hayle" }, "geometry": { "type": "Point", "coordinates": [ -5.4199282, 50.1855434 ] } },
 { "type": "Feature", "properties": { "name": "Truthall Halt" }, "geometry": { "type": "Point", "coordinates": [ -5.2841108, 50.1211053 ] } },
@@ -50,7 +41,6 @@ var json_StationsCornwall_5 = {
 { "type": "Feature", "properties": { "name": "Lostwithiel" }, "geometry": { "type": "Point", "coordinates": [ -4.6660608, 50.4071311 ] } },
 { "type": "Feature", "properties": { "name": "Bodmin Parkway" }, "geometry": { "type": "Point", "coordinates": [ -4.6627595, 50.4460054 ] } },
 { "type": "Feature", "properties": { "name": "Liskeard" }, "geometry": { "type": "Point", "coordinates": [ -4.4695293, 50.4468194 ] } },
-{ "type": "Feature", "properties": { "name": "East Wheal Rose" }, "geometry": { "type": "Point", "coordinates": [ -5.0418479, 50.3623643 ] } },
 { "type": "Feature", "properties": { "name": "Penzance" }, "geometry": { "type": "Point", "coordinates": [ -5.5320276, 50.1224396 ] } }
 ]
 }
