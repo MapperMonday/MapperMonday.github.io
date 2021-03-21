@@ -66,12 +66,15 @@
             continuousWorld: false,
             worldCopyJump: false, 
             zoomControl:true, maxZoom:4, minZoom:1
-        }).fitBounds([[50.430224099816606,-8.786506974635099],[56.641215618895124,4.865320376239296]]);
+        })
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
         }
         function pop_Circuitry_0(feature, layer) {
             var popupContent = '<table>\
@@ -99,7 +102,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(380.0),
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
             }
             if (feature.properties['Hierarchy'] >= 1.000000 && feature.properties['Hierarchy'] <= 2.000000 ) {
@@ -112,7 +115,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(760.0),
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
             }
             if (feature.properties['Hierarchy'] >= 2.000000 && feature.properties['Hierarchy'] <= 3.000000 ) {
@@ -125,7 +128,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(1140.0),
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
             }
             if (feature.properties['Hierarchy'] >= 3.000000 && feature.properties['Hierarchy'] <= 4.000000 ) {
@@ -138,7 +141,7 @@
                 lineJoin: 'bevel',
                 weight: geoStyle(1520.0),
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
             }
         }
@@ -147,7 +150,7 @@
         map.getPane('pane_Circuitry_0').style['mix-blend-mode'] = 'normal';
         var layer_Circuitry_0 = new L.geoJson(json_Circuitry_0, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_Circuitry_0',
             layerName: 'layer_Circuitry_0',
             pane: 'pane_Circuitry_0',
@@ -208,6 +211,9 @@
                     <tr>\
                         <td colspan="2">' + (feature.properties['URL'] !== null ? autolinker.link(feature.properties['URL'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Filter'] !== null ? autolinker.link(feature.properties['Filter'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
@@ -216,7 +222,7 @@
             if (feature.properties['q2wHide_Type'] >= 1.000000 && feature.properties['q2wHide_Type'] <= 1.000000 ) {
                 return {
                 pane: 'pane_ArtistsLabels_2',
-                radius: geoStyle(1500.0),
+                radius: geoStyle(1750.0),
                 opacity: 1,
                 color: 'rgba(255,221,0,1.0)',
                 dashArray: '',
@@ -238,7 +244,7 @@
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: geoStyle(950.0),
+                weight: geoStyle(1900.0),
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(4,99,7,1.0)',
@@ -354,7 +360,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"Name": "str"};
+        var Filters = {"Filter": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -446,117 +452,117 @@
         }
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
-            var div_Name = document.createElement('div');
-            div_Name.id = "div_Name";
-            div_Name.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Name);
-            sel_Name = document.createElement('select');
-            sel_Name.multiple = true;
-            sel_Name.size = 10;
-            sel_Name.id = "sel_Name";
-            var Name_options_str = "<option value='' unselected></option>";
-            sel_Name.onchange = function(){filterFunc()};
-            Name_options_str  += '<option value="Adventsong">Adventsong</option>';
-            Name_options_str  += '<option value="Apocalypse Then">Apocalypse Then</option>';
-            Name_options_str  += '<option value="Apta">Apta</option>';
-            Name_options_str  += '<option value="Asa">Asa</option>';
-            Name_options_str  += '<option value="Autoflag">Autoflag</option>';
-            Name_options_str  += '<option value="Azyss">Azyss</option>';
-            Name_options_str  += '<option value="BUNKR">BUNKR</option>';
-            Name_options_str  += '<option value="Beam Weapons">Beam Weapons</option>';
-            Name_options_str  += '<option value="Bell Lungs">Bell Lungs</option>';
-            Name_options_str  += '<option value="Black Tempest">Black Tempest</option>';
-            Name_options_str  += '<option value="Buried Treasure">Buried Treasure</option>';
-            Name_options_str  += '<option value="Castles In Space">Castles In Space</option>';
-            Name_options_str  += '<option value="Clay Pipe Music">Clay Pipe Music</option>';
-            Name_options_str  += '<option value="Concretism">Concretism</option>';
-            Name_options_str  += '<option value="Correlations">Correlations</option>';
-            Name_options_str  += '<option value="Craven Faults">Craven Faults</option>';
-            Name_options_str  += '<option value="Dalham">Dalham</option>';
-            Name_options_str  += '<option value="Dead Leg">Dead Leg</option>';
-            Name_options_str  += '<option value="Disintegration State">Disintegration State</option>';
-            Name_options_str  += '<option value="Drew Mullholland">Drew Mullholland</option>';
-            Name_options_str  += '<option value="FLVZ">FLVZ</option>';
-            Name_options_str  += '<option value="Field Lines Cartographer">Field Lines Cartographer</option>';
-            Name_options_str  += '<option value="Floodlights">Floodlights</option>';
-            Name_options_str  += '<option value="Fragile X">Fragile X</option>';
-            Name_options_str  += '<option value="Gavin Miller">Gavin Miller</option>';
-            Name_options_str  += '<option value="Ghost Box Records">Ghost Box Records</option>';
-            Name_options_str  += '<option value="Ghost Halo">Ghost Halo</option>';
-            Name_options_str  += '<option value="Golden Ratio Frequencies">Golden Ratio Frequencies</option>';
-            Name_options_str  += '<option value="Grey Frequency">Grey Frequency</option>';
-            Name_options_str  += '<option value="Hattie Cooke">Hattie Cooke</option>';
-            Name_options_str  += '<option value="Heartwood Institute">Heartwood Institute</option>';
-            Name_options_str  += '<option value="Henry Courgette">Henry Courgette</option>';
-            Name_options_str  += '<option value="Jacob Nico">Jacob Nico</option>';
-            Name_options_str  += '<option value="Jon Hopkins">Jon Hopkins</option>';
-            Name_options_str  += '<option value="Jumble Hole Clough">Jumble Hole Clough</option>';
-            Name_options_str  += '<option value="Keith Seatman">Keith Seatman</option>';
-            Name_options_str  += '<option value="Kieran Mahon">Kieran Mahon</option>';
-            Name_options_str  += '<option value="Kosmische Laufer">Kosmische Laufer</option>';
-            Name_options_str  += '<option value="Letters From Mouse">Letters From Mouse</option>';
-            Name_options_str  += '<option value="Lo Five">Lo Five</option>';
-            Name_options_str  += '<option value="Lonely Mountain">Lonely Mountain</option>';
-            Name_options_str  += '<option value="Lowering">Lowering</option>';
-            Name_options_str  += '<option value="Melodien">Melodien</option>';
-            Name_options_str  += '<option value="Middx">Middx</option>';
-            Name_options_str  += '<option value="Midwich Youth Club">Midwich Youth Club</option>';
-            Name_options_str  += '<option value="Miracle Pond">Miracle Pond</option>';
-            Name_options_str  += '<option value="Monochrome Echo">Monochrome Echo</option>';
-            Name_options_str  += '<option value="Mute Branches">Mute Branches</option>';
-            Name_options_str  += '<option value="Newlands">Newlands</option>';
-            Name_options_str  += '<option value="Oliver Cherer">Oliver Cherer</option>';
-            Name_options_str  += '<option value="Pictogram">Pictogram</option>';
-            Name_options_str  += '<option value="Polypores">Polypores</option>';
-            Name_options_str  += '<option value="Polytechnic Youth">Polytechnic Youth</option>';
-            Name_options_str  += '<option value="Pulselovers">Pulselovers</option>';
-            Name_options_str  += '<option value="Repeated Viewing">Repeated Viewing</option>';
-            Name_options_str  += '<option value="Simon McCorry">Simon McCorry</option>';
-            Name_options_str  += '<option value="Spaceship (Forged River Recordings)">Spaceship (Forged River Recordings)</option>';
-            Name_options_str  += '<option value="Sproatly Smith">Sproatly Smith</option>';
-            Name_options_str  += '<option value="Steve Hadfield">Steve Hadfield</option>';
-            Name_options_str  += '<option value="Sunbane">Sunbane</option>';
-            Name_options_str  += '<option value="The Central Office of Information">The Central Office of Information</option>';
-            Name_options_str  += '<option value="The Gibraltarians">The Gibraltarians</option>';
-            Name_options_str  += '<option value="The Night Monitor">The Night Monitor</option>';
-            Name_options_str  += '<option value="The Slow Engineer">The Slow Engineer</option>';
-            Name_options_str  += '<option value="The Soulless Party">The Soulless Party</option>';
-            Name_options_str  += '<option value="Time Attendant">Time Attendant</option>';
-            Name_options_str  += '<option value="Tomorrow Syndicate">Tomorrow Syndicate</option>';
-            Name_options_str  += '<option value="Twelve Hour Foundation">Twelve Hour Foundation</option>';
-            Name_options_str  += '<option value="Veins Full of Static">Veins Full of Static</option>';
-            Name_options_str  += '<option value="Vic Mars">Vic Mars</option>';
-            Name_options_str  += '<option value="Violet Mist">Violet Mist</option>';
-            Name_options_str  += '<option value="Vorderhaus">Vorderhaus</option>';
-            Name_options_str  += '<option value="Woodford Halse">Woodford Halse</option>';
-            Name_options_str  += '<option value="Yumah">Yumah</option>';
-            Name_options_str  += '<option value="dogs versus shadows">dogs versus shadows</option>';
-            sel_Name.innerHTML = Name_options_str;
-            div_Name.appendChild(sel_Name);
-            var lab_Name = document.createElement('div');
-            lab_Name.innerHTML = 'Name';
-            lab_Name.className = 'filterlabel';
-            div_Name.appendChild(lab_Name);
-            var reset_Name = document.createElement('div');
-            reset_Name.innerHTML = 'clear filter';
-            reset_Name.className = 'filterlabel';
-            reset_Name.onclick = function() {
-                var options = document.getElementById("sel_Name").options;
+            var div_Filter = document.createElement('div');
+            div_Filter.id = "div_Filter";
+            div_Filter.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Filter);
+            sel_Filter = document.createElement('select');
+            sel_Filter.multiple = true;
+            sel_Filter.size = 10;
+            sel_Filter.id = "sel_Filter";
+            var Filter_options_str = "<option value='' unselected></option>";
+            sel_Filter.onchange = function(){filterFunc()};
+            Filter_options_str  += '<option value="Adventsong">Adventsong</option>';
+            Filter_options_str  += '<option value="Apocalypse Then">Apocalypse Then</option>';
+            Filter_options_str  += '<option value="Apta">Apta</option>';
+            Filter_options_str  += '<option value="Asa">Asa</option>';
+            Filter_options_str  += '<option value="Autoflag">Autoflag</option>';
+            Filter_options_str  += '<option value="Azyss">Azyss</option>';
+            Filter_options_str  += '<option value="BUNKR">BUNKR</option>';
+            Filter_options_str  += '<option value="Beam Weapons">Beam Weapons</option>';
+            Filter_options_str  += '<option value="Bell Lungs">Bell Lungs</option>';
+            Filter_options_str  += '<option value="Black Tempest">Black Tempest</option>';
+            Filter_options_str  += '<option value="Buried Treasure (Label)">Buried Treasure (Label)</option>';
+            Filter_options_str  += '<option value="Castles In Space (Label)">Castles In Space (Label)</option>';
+            Filter_options_str  += '<option value="Clay Pipe Music (Label)">Clay Pipe Music (Label)</option>';
+            Filter_options_str  += '<option value="Concretism">Concretism</option>';
+            Filter_options_str  += '<option value="Correlations">Correlations</option>';
+            Filter_options_str  += '<option value="Craven Faults">Craven Faults</option>';
+            Filter_options_str  += '<option value="Dalham">Dalham</option>';
+            Filter_options_str  += '<option value="Dead Leg">Dead Leg</option>';
+            Filter_options_str  += '<option value="Disintegration State (Label)">Disintegration State (Label)</option>';
+            Filter_options_str  += '<option value="Drew Mullholland">Drew Mullholland</option>';
+            Filter_options_str  += '<option value="FLVZ">FLVZ</option>';
+            Filter_options_str  += '<option value="Field Lines Cartographer">Field Lines Cartographer</option>';
+            Filter_options_str  += '<option value="Floodlights">Floodlights</option>';
+            Filter_options_str  += '<option value="Fragile X">Fragile X</option>';
+            Filter_options_str  += '<option value="Gavin Miller">Gavin Miller</option>';
+            Filter_options_str  += '<option value="Ghost Box Records (Label)">Ghost Box Records (Label)</option>';
+            Filter_options_str  += '<option value="Ghost Halo">Ghost Halo</option>';
+            Filter_options_str  += '<option value="Golden Ratio Frequencies (Label)">Golden Ratio Frequencies (Label)</option>';
+            Filter_options_str  += '<option value="Grey Frequency">Grey Frequency</option>';
+            Filter_options_str  += '<option value="Hattie Cooke">Hattie Cooke</option>';
+            Filter_options_str  += '<option value="Heartwood Institute">Heartwood Institute</option>';
+            Filter_options_str  += '<option value="Henry Courgette">Henry Courgette</option>';
+            Filter_options_str  += '<option value="Jacob Nico">Jacob Nico</option>';
+            Filter_options_str  += '<option value="Jon Hopkins">Jon Hopkins</option>';
+            Filter_options_str  += '<option value="Jumble Hole Clough">Jumble Hole Clough</option>';
+            Filter_options_str  += '<option value="Keith Seatman">Keith Seatman</option>';
+            Filter_options_str  += '<option value="Kieran Mahon">Kieran Mahon</option>';
+            Filter_options_str  += '<option value="Kosmische Laufer">Kosmische Laufer</option>';
+            Filter_options_str  += '<option value="Letters From Mouse">Letters From Mouse</option>';
+            Filter_options_str  += '<option value="Lo Five">Lo Five</option>';
+            Filter_options_str  += '<option value="Lonely Mountain (Label)">Lonely Mountain (Label)</option>';
+            Filter_options_str  += '<option value="Lowering">Lowering</option>';
+            Filter_options_str  += '<option value="Melodien">Melodien</option>';
+            Filter_options_str  += '<option value="Middx">Middx</option>';
+            Filter_options_str  += '<option value="Midwich Youth Club">Midwich Youth Club</option>';
+            Filter_options_str  += '<option value="Miracle Pond (Label)">Miracle Pond (Label)</option>';
+            Filter_options_str  += '<option value="Monochrome Echo">Monochrome Echo</option>';
+            Filter_options_str  += '<option value="Mute Branches">Mute Branches</option>';
+            Filter_options_str  += '<option value="Newlands">Newlands</option>';
+            Filter_options_str  += '<option value="Oliver Cherer">Oliver Cherer</option>';
+            Filter_options_str  += '<option value="Pictogram">Pictogram</option>';
+            Filter_options_str  += '<option value="Polypores">Polypores</option>';
+            Filter_options_str  += '<option value="Polytechnic Youth (Label)">Polytechnic Youth (Label)</option>';
+            Filter_options_str  += '<option value="Pulselovers">Pulselovers</option>';
+            Filter_options_str  += '<option value="Repeated Viewing">Repeated Viewing</option>';
+            Filter_options_str  += '<option value="Simon McCorry">Simon McCorry</option>';
+            Filter_options_str  += '<option value="Spaceship (Forged River Recordings)">Spaceship (Forged River Recordings)</option>';
+            Filter_options_str  += '<option value="Sproatly Smith">Sproatly Smith</option>';
+            Filter_options_str  += '<option value="Steve Hadfield">Steve Hadfield</option>';
+            Filter_options_str  += '<option value="Sunbane">Sunbane</option>';
+            Filter_options_str  += '<option value="The Central Office of Information">The Central Office of Information</option>';
+            Filter_options_str  += '<option value="The Gibraltarians">The Gibraltarians</option>';
+            Filter_options_str  += '<option value="The Night Monitor">The Night Monitor</option>';
+            Filter_options_str  += '<option value="The Slow Engineer">The Slow Engineer</option>';
+            Filter_options_str  += '<option value="The Soulless Party">The Soulless Party</option>';
+            Filter_options_str  += '<option value="Time Attendant">Time Attendant</option>';
+            Filter_options_str  += '<option value="Tomorrow Syndicate">Tomorrow Syndicate</option>';
+            Filter_options_str  += '<option value="Twelve Hour Foundation">Twelve Hour Foundation</option>';
+            Filter_options_str  += '<option value="Veins Full of Static">Veins Full of Static</option>';
+            Filter_options_str  += '<option value="Vic Mars">Vic Mars</option>';
+            Filter_options_str  += '<option value="Violet Mist">Violet Mist</option>';
+            Filter_options_str  += '<option value="Vorderhaus">Vorderhaus</option>';
+            Filter_options_str  += '<option value="Woodford Halse (Label)">Woodford Halse (Label)</option>';
+            Filter_options_str  += '<option value="Yumah">Yumah</option>';
+            Filter_options_str  += '<option value="dogs versus shadows">dogs versus shadows</option>';
+            sel_Filter.innerHTML = Filter_options_str;
+            div_Filter.appendChild(sel_Filter);
+            var lab_Filter = document.createElement('div');
+            lab_Filter.innerHTML = 'Filter';
+            lab_Filter.className = 'filterlabel';
+            div_Filter.appendChild(lab_Filter);
+            var reset_Filter = document.createElement('div');
+            reset_Filter.innerHTML = 'clear filter';
+            reset_Filter.className = 'filterlabel';
+            reset_Filter.onclick = function() {
+                var options = document.getElementById("sel_Filter").options;
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
                 filterFunc();
             };
-            div_Name.appendChild(reset_Name);
-        resetLabels([layer_CircuitHubs_1]);
+            div_Filter.appendChild(reset_Filter);
+        resetLabels([layer_CircuitHubs_1,layer_ArtistsLabels_2]);
         map.on("zoomend", function(){
-            resetLabels([layer_CircuitHubs_1]);
+            resetLabels([layer_CircuitHubs_1,layer_ArtistsLabels_2]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_CircuitHubs_1]);
+            resetLabels([layer_CircuitHubs_1,layer_ArtistsLabels_2]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_CircuitHubs_1]);
+            resetLabels([layer_CircuitHubs_1,layer_ArtistsLabels_2]);
         });
         </script>
     </body>
